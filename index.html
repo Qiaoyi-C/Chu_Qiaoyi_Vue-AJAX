@@ -11,35 +11,37 @@
     <script type="module" src="js/main.js"></script>
 </head>
 <body>
+    <header class="header-bk">
+        <div class="nintendo-header">
+            <img src="images/logo.svg" alt="Nintendo Logo" class="logo">            
+        </div>
+    </header>
+
     <div class="grid-con" id="app">
-        <div class="col-span-full">
-            <h2>Nintendo Consoles</h2>
-            <p>Explore the legacy of Nintendo gaming consoles!</p>
-            <p>Click on a console to see more details!</p>
+        <div class="col-span-full h2-title"><h2>Previous Console Generations</h2></div>
+        
 
-            <!-- Loading indicator when fetching consoles -->
-            <div v-if="loadingConsoles">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-                    <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
-                        <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
-                    </circle>
-                </svg>
-            </div>
+        <!-- 主機列表 -->
+        <ul id="console-list" v-if="!loadingConsoles" class="col-span-full console-grid">
+            <li v-for="console in consoleList" :key="console.id" class="console-card">
+                <img :src="`images/${console.image_url}`" alt="Console Image" class="console-image">
+                <h3 class="h3-title">{{ console.name }}</h3>
+                <p><span class="year">Release Year</span> {{ console.release_year }}</p>
+                <button @click="getConsole(console.id)">Read more</button>
+                <img class="mushroom-icon" src="images/mushroom.svg" alt="Mushroom">
+            </li>
+        </ul>
 
-            <!-- List of consoles -->
-            <ul id="console-list" v-if="!loadingConsoles">
-                <li v-for="console in consoleList" :key="console.id">
-                    <h3>
-                        <a href="#detail" @click.prevent="getConsole(console.id)">
-                            <img :src="`images/${console.image_url}`" alt="Console Image" class="console-image">
-                            {{ console.name }} ({{ console.release_year }})
-                        </a>
-                    </h3>
-                </li>
-            </ul>
+        <!-- 載入中動畫 -->
+        <div v-if="loadingConsoles" class="col-span-full">
+            <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
+                    <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
+                </circle>
+            </svg>
         </div>
 
-        <!-- Console Details Section -->
+        <!-- 詳細資訊區塊 -->
         <div class="col-span-full" id="detail">
             <div v-if="loading">
                 <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
@@ -49,25 +51,31 @@
                 </svg>
             </div>
 
-            <!-- Error message if any -->
+            <!-- 錯誤訊息 -->
             <section v-if="error">
-                {{ error }}
+                <p class="error">{{ error }}</p>
             </section>
 
-            <!-- Console Information (name, image, year, features) -->
-            <section id="info-box" v-if="name">
-            
-
-                <!-- Features Section -->
-                <div v-if="features.length">
-                    <p><span class="title">Features:</span></p>
-                    <ul>
-                        <li v-for="f in features" :key="f.id">{{ f.feature_name }}</li>
-                        <li v-for="f in features" :key="f.id">{{ f.description}}</li>
-                    </ul>
+            <!-- Feature Modal 彈窗 -->
+            <div class="modal-overlay" v-if="showFeatureModal" @click.self="closeFeatureModal">
+                <div class="modal-content">
+                <h2>Features</h2>
+                <div v-for="f in features" :key="f.id">
+                    <p><span class="key_eatures">Key Features</span> {{ f.feature_name }}</p>
+                    <p><span class="describe">Describe</span> {{ f.description }}</p>
                 </div>
-            </section>
+                </div>
+            </div>
+  
         </div>
+
     </div>
+
+    <footer>
+        <div class="money"><img src="images/money.png" alt="Money"></div>
+        <div class="pipe"><img src="images/pipe.png" alt="Pipe"></div>
+        <div class="brick"><img src="images/bricks.png" alt="Bricks"></div>
+        
+    </footer>
 </body>
 </html>
