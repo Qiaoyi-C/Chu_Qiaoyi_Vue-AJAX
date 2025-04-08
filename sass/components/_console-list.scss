@@ -1,0 +1,101 @@
+.console-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+.console-card {
+    background-color: #FFD000;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.console-card:hover {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 0 #555;
+  }
+  
+.console-card .mushroom-icon {
+   position: absolute;
+   top: 10px;
+   left: 10px;
+   width: 50px;
+   opacity: 0;
+   transform: scale(0.5) rotate(-20deg);
+   transition: opacity 0.3s ease, transform 0.3s ease;
+   pointer-events: none;
+  }
+  
+.console-card:hover .mushroom-icon {
+   opacity: 1;
+   transform: scale(1) rotate(0);
+  }
+
+.console-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+.h3-title{
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.year{
+    margin-right: 10px;
+}
+
+#console-list p{
+    color: #454545;
+}
+
+button {
+    margin-top: 20px;
+    background-color: #e60012;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #49A74A, #49A74A);
+    z-index: -1;
+    transition: width 0.4s ease;
+}
+
+/* Hover 時展開背景 */
+button:hover::before {
+    width: 100%;
+}
+
+
+#info-box {
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .console-card {
+      width: 100%;
+    }
+  }
