@@ -2,10 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>Nintendo Consoles</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Lato&display=swap" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
-    
+    <div class="grid-con" id="app">
+        <div class="col-span-full">
+            <h2>Nintendo Consoles</h2>
+            <p>Explore the legacy of Nintendo gaming consoles!</p>
+            <p>Click on a console to see more details!</p>
+
+            <!-- Loading indicator when fetching consoles -->
+            <div v-if="loadingConsoles">
+                <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                    <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
+                        <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
+                    </circle>
+                </svg>
+            </div>
+
+            <!-- List of consoles -->
+            <ul id="console-list" v-if="!loadingConsoles">
+                <li v-for="console in consoleList" :key="console.id">
+                    <h3>
+                        <a href="#detail" @click.prevent="getConsole(console.id)">
+                            <img :src="`images/${console.image_url}`" alt="Console Image" class="console-image">
+                            {{ console.name }} ({{ console.release_year }})
+                        </a>
+                    </h3>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Console Details Section -->
+        <div class="col-span-full" id="detail">
+            <div v-if="loading">
+                <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                    <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
+                        <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
+                    </circle>
+                </svg>
+            </div>
+
+            <!-- Error message if any -->
+            <section v-if="error">
+                {{ error }}
+            </section>
+
+            <!-- Console Information (name, image, year, features) -->
+            <section id="info-box" v-if="name">
+            
+
+                <!-- Features Section -->
+                <div v-if="features.length">
+                    <p><span class="title">Features:</span></p>
+                    <ul>
+                        <li v-for="f in features" :key="f.id">{{ f.feature_name }}</li>
+                        <li v-for="f in features" :key="f.id">{{ f.description}}</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
 </body>
 </html>
