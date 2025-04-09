@@ -80,7 +80,6 @@ button::before {
     transition: width 0.4s ease;
 }
 
-/* Hover 時展開背景 */
 button:hover::before {
     width: 100%;
 }

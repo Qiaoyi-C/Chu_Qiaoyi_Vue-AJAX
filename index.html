@@ -21,7 +21,6 @@
         <div class="col-span-full h2-title"><h2>Previous Console Generations</h2></div>
         
 
-        <!-- 主機列表 -->
         <ul id="console-list" v-if="!loadingConsoles" class="col-span-full console-grid">
             <li v-for="console in consoleList" :key="console.id" class="console-card">
                 <img :src="`images/${console.image_url}`" alt="Console Image" class="console-image">
@@ -32,31 +31,19 @@
             </li>
         </ul>
 
-        <!-- 載入中動畫 -->
         <div v-if="loadingConsoles" class="col-span-full">
-            <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-                <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
-                    <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
-                </circle>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FFDF05"></stop><stop offset=".3" stop-color="#FFDF05" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FFDF05" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FFDF05" stop-opacity=".3"></stop><stop offset="1" stop-color="#FFDF05" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FFDF05" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
         </div>
 
-        <!-- 詳細資訊區塊 -->
         <div class="col-span-full" id="detail">
             <div v-if="loading">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-                    <circle fill="#e60012" stroke="#e60012" stroke-width="15" r="15" cx="35" cy="100">
-                        <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
-                    </circle>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FFDF05"></stop><stop offset=".3" stop-color="#FFDF05" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FFDF05" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FFDF05" stop-opacity=".3"></stop><stop offset="1" stop-color="#FFDF05" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FFDF05" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
             </div>
 
-            <!-- 錯誤訊息 -->
             <section v-if="error">
                 <p class="error">{{ error }}</p>
             </section>
 
-            <!-- Feature Modal 彈窗 -->
             <div class="modal-overlay" v-if="showFeatureModal" @click.self="closeFeatureModal">
                 <div class="modal-content">
                 <h2>Features</h2>
@@ -79,3 +66,6 @@
     </footer>
 </body>
 </html>
+
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>

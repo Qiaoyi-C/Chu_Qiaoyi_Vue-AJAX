@@ -1,3 +1,5 @@
+import { setupScrollAnimations } from './scrollAnimation.js';
+
 const app = Vue.createApp({
     created() {
         this.fetchConsoles();
@@ -23,6 +25,9 @@ const app = Vue.createApp({
                 .then(data => {
                     this.consoleList = data;
                     this.loadingConsoles = false;
+                    this.$nextTick(() => {
+                        setupScrollAnimations(); 
+                    });
                 })
                 .catch(error => {
                     console.error(error);
